@@ -18,7 +18,7 @@ for letter in chosen_word:
 print(logo)
 while not end_of_game:
     guess = input("Guess a letter: ").lower()
-
+    print("\x1B[2J")
     # Check if guess has been made previously
     if guess not in already_guessed:
         already_guessed += guess
@@ -29,6 +29,7 @@ while not end_of_game:
                 display[position] = guess
 
         # Join the list and turn it into a string.
+
         print(f"{' '.join(display)}")
 
         if guess not in chosen_word:
@@ -38,6 +39,7 @@ while not end_of_game:
             if lives == 0:
                 end_of_game = True
                 print("You lose.")
+                print(f"The word was {chosen_word}")
 
         # Check if user has got all letters.
         if "_" not in display:
