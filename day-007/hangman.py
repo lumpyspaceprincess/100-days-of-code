@@ -18,7 +18,7 @@ for letter in chosen_word:
 print(logo)
 while not end_of_game:
     guess = input("Guess a letter: ").lower()
-    print("\x1B[2J")
+    print("\x1B[2J")  # This line clears the screen
     # Check if guess has been made previously
     if guess not in already_guessed:
         already_guessed += guess
