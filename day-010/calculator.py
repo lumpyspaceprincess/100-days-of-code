@@ -46,7 +46,7 @@ def operation_decider():
     return final_op, decision
 
 
-def rounding(number):
+def rounding(number):   # If the number is whole, return as an integer for prettiness
     if number % 1 == 0:
         return int(number)
     else:
@@ -62,9 +62,9 @@ def calculator():
     continuing = True
 
     while continuing:
-        function, fun_str = operation_decider()
+        function, fun_str = operation_decider()     # Decide on / * + -
         num2 = float(input("What's the next number?: "))
-        answer = function(num1, num2)
+        answer = function(num1, num2)               # function name is / * + -
         print(f"{num1} {fun_str} {num2} = {rounding(answer)}")
         should_continue = input(f"Would you like to perform another operation "
                                 f"with {rounding(answer)}? Yes or No: ").lower()
