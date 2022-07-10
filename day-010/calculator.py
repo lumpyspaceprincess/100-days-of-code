@@ -2,12 +2,9 @@
 # Calculator with addition, subtraction, multiplication, and division
 
 from art import logo
+import os
 
 print(logo)
-
-
-def clear():
-    return "\x1B[2J"
 
 
 # Addition
@@ -70,7 +67,7 @@ def calculator():
                                 f"with {rounding(answer)}? Yes or No: ").lower()
         if not should_continue == "yes":
             continuing = False
-            print(clear())
+            os.system('cls' if os.name == 'nt' else 'clear')
             print(logo)
             calculator()
         else:
