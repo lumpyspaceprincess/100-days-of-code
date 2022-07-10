@@ -1,10 +1,7 @@
 # Day 9 of 100 Days of Code
 
 from art import logo
-
-
-def clear():
-    return "\x1B[2J"
+import os
 
 
 auction_dict = {
@@ -36,4 +33,4 @@ while getting_participants:
         getting_participants = False
         find_winner(auction_dict)
     if continuing == "yes":
-        print(clear())
+        os.system('cls' if os.name == 'nt' else 'clear')
