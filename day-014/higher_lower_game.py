@@ -4,10 +4,7 @@
 from art import logo, vs
 from game_data import data
 import random
-
-
-def clear():
-    return "\x1B[2J"
+import os
 
 
 def random_account():
@@ -51,7 +48,7 @@ def game_loop():
         b_followers = account_b['follower_count']
         player_correct = checking_the_answer(guess, a_followers, b_followers)
         print(player_correct)
-        print(clear())
+        os.system('cls' if os.name == 'nt' else 'clear')
         print(logo)
         if player_correct:
             player_score += 1
