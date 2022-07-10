@@ -3,10 +3,7 @@
 
 from art import logo
 import random
-
-
-def clear():             # Clears the screen
-    return "\x1B[2J"
+import os
 
 
 def create_the_number():
@@ -58,12 +55,12 @@ def main_loop(turns_remaining, the_target):
 game_running = True
 
 while game_running:
-    print(clear())
+    os.system('cls' if os.name == 'nt' else 'clear')
     print(logo)
     print("Welcome to the Number Guessing Game!")
     print("I'm thinking of a number between 1 and 100.")
     the_number = create_the_number()
-    # print(f"Pssst, the correct answer is {the_number}")
+    # print(f"Pssst, the correct answer is {the_number}")  # For debugging
     game_difficulty = input("Choose a difficulty. Type 'easy' or 'hard': ").lower()
     difficulty_number = difficulty_test(game_difficulty)
     main_loop(difficulty_number, the_number)
