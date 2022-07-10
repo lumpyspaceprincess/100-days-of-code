@@ -3,10 +3,7 @@
 
 import random
 from art import logo
-
-
-def clear():             # Clears the screen
-    return "\x1B[2J"
+import os
 
 
 def bust_check(hand):
@@ -102,7 +99,7 @@ cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
 
 def game_continue():
-    print(clear(), "\n")
+    os.system('cls' if os.name == 'nt' else 'clear')
     print(logo)
     player_hand = dealing(2, [])
     print(f"Your cards are {player_hand}, current score {score(player_hand)}")
