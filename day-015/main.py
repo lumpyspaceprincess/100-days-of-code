@@ -41,6 +41,7 @@ def report_generator():
 
 
 def resource_problems(choice):
+    """Returns the first insufficient ingredient, or 'false' if ingredients are sufficient"""
     problem_identified = "false"
     if MENU[choice]['ingredients']['water'] > resources['water']:
         problem_identified = "water"
@@ -53,6 +54,7 @@ def resource_problems(choice):
 
 
 def adding_funds():
+    """Returns the total from coins inserted"""
     funds = 0
     print("Please insert coins.")
     funds += int(input("How many quarters? ")) * 0.25
@@ -60,10 +62,6 @@ def adding_funds():
     funds += int(input("How many nickles? ")) * 0.05
     funds += int(input("How many pennies? ")) * 0.01
     return funds
-
-
-def pricing(choice):
-    return MENU[choice]['cost']
 
 
 def resource_depleter(choice):
@@ -93,7 +91,7 @@ def coffee_loop():
         # 5. Process coins
         else:
             wallet = adding_funds()
-            cost = pricing(user_selection)
+            cost = MENU[user_selection]['cost']
 
             # 6. Check if transaction is successful
             if not wallet >= cost:
