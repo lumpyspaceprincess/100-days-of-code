@@ -8,9 +8,10 @@ LEFT = 180
 RIGHT = 0
 
 
-class Snake:
+class Snake(Turtle):
 
     def __init__(self):
+        super().__init__()
         self.segments = []
         self.create_snake()
         self.head_of_snake = self.segments[0]
@@ -18,6 +19,13 @@ class Snake:
     def create_snake(self):
         for position in STARTING_POSITIONS:
             self.add_segment(position)
+
+    def reset_snake(self):
+        for segment in self.segments:
+            segment.goto(900, 900)
+        self.segments.clear()
+        self.create_snake()
+        self.head_of_snake = self.segments[0]
 
     def add_segment(self, position):
         new_segment = Turtle(shape="square")
