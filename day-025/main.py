@@ -21,6 +21,8 @@ while len(correct_guesses) < 50:
         the_title = f"{len(correct_guesses)}/50 States Correct"
 
     answer_state = screen.textinput(title=the_title, prompt="Type another state's name").title()
+    if answer_state == "Exit":
+        break
 
     # If player's answer is in the list of states
     for state in data["state"]:
@@ -35,5 +37,10 @@ while len(correct_guesses) < 50:
             # Create a turtle to draw the name in the correct location
             new_turtle = StateWriter(x=new_x, y=new_y, name=answer_state)
 
+list_of_not_guessed = []
+for state in data["state"]:
+    if state not in correct_guesses:
+        list_of_not_guessed.append(state)
 
-turtle.mainloop()
+df = pandas.DataFrame(list_of_not_guessed)
+df.to_csv("states_to_remember.csv")
