@@ -1,6 +1,6 @@
 from turtle import Turtle
 
-FONT = ('Courier', 14, 'normal')
+FONT = ('Courier', 12, 'normal')
 
 class StateWriter(Turtle):
 
@@ -8,6 +8,6 @@ class StateWriter(Turtle):
         super().__init__()
         self.hideturtle()
         self.penup()
-        self.color("black")
+
         self.goto(x, y)
         self.write(name, font=FONT)
