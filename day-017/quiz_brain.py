@@ -23,10 +23,3 @@ class QuizBrain:
         print(f"The correct answer was: {correct_answer}")
         print(f"Your current score is {self.score}/{self.question_number}")
         print("\n")
-
-
-# TODO 1. Asking the questions
-
-# TODO 2. Checking if the answer was correct
-
-# TODO 3. Checking if we're at the end of the quiz
