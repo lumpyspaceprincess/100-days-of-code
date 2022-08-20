@@ -23,7 +23,7 @@ while len(correct_guesses) < 50:
     answer_state = screen.textinput(title=the_title, prompt="Type another state's name").title()
     if answer_state == "Exit":
 
-        #Make a list of states not remembered
+        # Make a list of states not remembered
         missing_states = [state for state in data["state"] if state not in correct_guesses]
         break
 
