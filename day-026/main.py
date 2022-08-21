@@ -22,6 +22,7 @@ for (index, row) in student_data_frame.iterrows():
 # Keyword Method with iterrows()
 # {new_key:new_value for (index, row) in df.iterrows()}
 
+
 # 1. Create a dictionary in this format:
 # {"A": "Alfa", "B": "Bravo", "C": "Charlie"}
 
@@ -30,6 +31,17 @@ my_dict = {row["letter"]: row["code"] for (index, row) in df.iterrows()}
 
 # 2. Create a list of the phonetic code words from a word that the user inputs.
 
-user_input = input("Type a word: ").upper()
-output_list = [my_dict[letter] for letter in user_input]
-print(output_list)
+
+def nato_alphabetiser():
+    user_input = input("Type a word: ").upper()
+
+    try:
+        output_list = [my_dict[letter] for letter in user_input]
+    except KeyError:
+        print("Sorry, only letters in the alphabet please")
+        nato_alphabetiser()
+    else:
+        print(output_list)
+
+
+nato_alphabetiser()
