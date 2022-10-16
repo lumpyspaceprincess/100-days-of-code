@@ -4,47 +4,41 @@ import pandas
 
 BACKGROUND_COLOR = "#B1DDC6"
 
-
-# ---------------------------- READ WORD LIST ------------------------------- #
-
-
 file = pandas.read_csv("data/french_words.csv")
 data = pandas.DataFrame.to_dict(file, orient="records")
+current_card = {}
 
 
-# ---------------------------- UI SETUP ------------------------------- #
+def next_flashcard():
+    global current_card, flip_timer
+    window.after_cancel(flip_timer)
+    current_card = random.choice(data)
+    canvas.itemconfig(card_title, text="French", fill="black")
+    canvas.itemconfig(card_word, text=current_card["French"], fill="black")
+    canvas.itemconfig(card_background, image=front_flash_card)
+    flip_timer = window.after(3000, func=flip_card)
+
+
+def flip_card():
+    canvas.itemconfig(card_title, text="English", fill="white")
+    canvas.itemconfig(card_word, text=current_card["English"], fill="white")
+    canvas.itemconfig(card_background, image=back_flash_card)
 
 
 window = Tk()
 window.title("Flashy")
 window.config(padx=50, pady=50, background=BACKGROUND_COLOR)
 
+flip_timer = window.after(3000, func=flip_card)
+
 canvas = Canvas(width=800, height=526)
 front_flash_card = PhotoImage(file="images/card_front.png")
-canvas.create_image(400, 263, image=front_flash_card)
+back_flash_card = PhotoImage(file="images/card_back.png")
+card_background = canvas.create_image(400, 263, image=front_flash_card)
+card_title = canvas.create_text(400, 150, text=f"d", font=("Arial", 40, "italic"))
+card_word = canvas.create_text(400, 263, text=f"sdf", font=("Arial", 60, "bold"))
 canvas.config(highlightthickness=0, background=BACKGROUND_COLOR)
 canvas.grid(column=0, row=0, columnspan=2)
-
-
-# ---------------------------- CREATE NEW FLASHCARDS ------------------------------- #
-
-
-def word_language(language):
-    canvas.delete("all")
-    canvas.create_image(400, 263, image=front_flash_card)
-    canvas.create_text(400, 150, text=f"{language}", font=("Arial", 40, "italic"))
-
-
-def word_text(text):
-    canvas.create_text(400, 263, text=f"{text}", font=("Arial", 60, "bold"))
-
-
-def next_flashcard():
-    language = "French"
-    new_word = random.choice(data)
-    text = new_word["French"]
-    word_language(language)
-    word_text(text)
 
 
 # ---------------------------- CREATE BUTTONS ------------------------------- #
