@@ -61,7 +61,7 @@ for person in birthdays:
             # pick a random letter from letter templates and replace the [NAME] with
             # the person's actual name from birthdays.csv
             choice = random.choice(os.listdir("letter_templates"))
-            with open(choice, "r") as data:
+            with open(f"letter_templates/{choice}", "r") as data:
                 email_contents = data.read()
                 email_contents = email_contents.replace("[NAME]", person["name"])
 
