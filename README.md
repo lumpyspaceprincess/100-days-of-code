@@ -8,3 +8,7 @@ For the time being I will use it to note down changes, amendments, or important 
 ### **Day 006**
 
 Since this project is based on Reeborg's World maze puzzle, it would be nice to be able to implement the actual puzzle itself in code as well as the solution.
+
+### **Day 032**
+
+Gmail's security has been updated, so I haven't been able to check if this actually works. Need to sort out security settings to test.
