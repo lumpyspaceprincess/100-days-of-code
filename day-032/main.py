@@ -2,7 +2,6 @@ import smtplib
 import datetime as dt
 import random
 import pandas
-import os
 
 MY_EMAIL = "definitely_my_email@gmail.com"
 MY_PASSWORD = "secure_password"
@@ -60,8 +59,7 @@ for person in birthdays:
             # 3. If step 2 is true,
             # pick a random letter from letter templates and replace the [NAME] with
             # the person's actual name from birthdays.csv
-            choice = random.choice(os.listdir("letter_templates"))
-            with open(f"letter_templates/{choice}", "r") as data:
+            with open(f"letter_templates/letter_{random.randint(1, 3)}.txt", "r") as data:
                 email_contents = data.read()
                 email_contents = email_contents.replace("[NAME]", person["name"])
 
