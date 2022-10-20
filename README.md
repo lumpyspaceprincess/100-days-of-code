@@ -12,3 +12,7 @@ Since this project is based on Reeborg's World maze puzzle, it would be nice to 
 ### **Day 032**
 
 Gmail's security has been updated, so I haven't been able to check if this actually works. Need to sort out security settings to test.
+
+###  ** Day 033**
+
+Another one which requires gmail to send emails. All other testing seems to show it working though.
