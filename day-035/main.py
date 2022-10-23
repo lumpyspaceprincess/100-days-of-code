@@ -22,11 +22,12 @@ response.raise_for_status()
 weather_data = response.json()["list"]
 
 for item in weather_data:
-    time = item["dt_txt"].split(" ")[1]
-    temperature = item["main"]["feels_like"]  # "Feels like" is the only valid measurement of temperature
-    print(f"At {time} the temperature will be {temperature}°C")
-
     # Will it rain in the next 12 hours?
     # Open Weather Map weather condition codes: https://openweathermap.org/weather-conditions
+    rain = ""
     if item["weather"][0]["id"] < 700:
-        print(f"It is due to rain at {time}")
+        rain = "It is due to rain at this time."
+
+    time = item["dt_txt"].split(" ")[1]
+    temperature = item["main"]["feels_like"]  # "Feels like" is the only valid measurement of temperature
+    print(f"At {time} the temperature will be {temperature}°C. {rain}")
