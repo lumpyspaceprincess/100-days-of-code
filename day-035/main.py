@@ -23,9 +23,10 @@ weather_data = response.json()["list"]
 
 for item in weather_data:
     time = item["dt_txt"].split(" ")[1]
-    temperature = item["main"]["feels_like"]
+    temperature = item["main"]["feels_like"]  # "Feels like" is the only valid measurement of temperature
     print(f"At {time} the temperature will be {temperature}°C")
 
     # Will it rain in the next 12 hours?
-    if "rain" in item["weather"][0]["description"]:
+    # Open Weather Map weather condition codes: https://openweathermap.org/weather-conditions
+    if item["weather"][0]["id"] < 700:
         print(f"It is due to rain at {time}")
