@@ -28,6 +28,7 @@ for item in weather_data:
     if item["weather"][0]["id"] < 700:
         rain = "It is due to rain at this time."
 
-    time = item["dt_txt"].split(" ")[1]
+    # rsplit splits from the end forwards, and maxsplit set to 1 only splits the first instance:
+    time = item["dt_txt"].split(" ")[1].rsplit(":", 1)[0]
     temperature = item["main"]["feels_like"]  # "Feels like" is the only valid measurement of temperature
     print(f"At {time} the temperature will be {temperature}°C. {rain}")
