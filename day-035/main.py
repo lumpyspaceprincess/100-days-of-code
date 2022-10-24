@@ -1,9 +1,8 @@
-import time
-
 import requests
 import os
 from dotenv import load_dotenv
 from twilio.rest import Client
+import time
 import schedule
 
 load_dotenv()
@@ -31,10 +30,11 @@ response = requests.get(url=OPEN_WEATHER_MAP_ENDPOINT, params=parameters)
 response.raise_for_status()
 weather_data = response.json()["list"]
 
-rain_message = ""
-will_rain = False
 
-while True:
+def sms_rain_messaging():
+    rain_message = ""
+    will_rain = False
+
     for item in weather_data:
         # Will it rain in the next 12 hours?
         # Open Weather Map weather condition codes: https://openweathermap.org/weather-conditions
@@ -54,3 +54,8 @@ while True:
 
         print(message.status)
 
+
+while True:
+    schedule.every().day.at("07:00").do(sms_rain_messaging)
+    time.sleep(1)
+    
