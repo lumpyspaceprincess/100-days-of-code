@@ -1,10 +1,20 @@
+import time
+
 import requests
 import os
 from dotenv import load_dotenv
+from twilio.rest import Client
+import schedule
 
 load_dotenv()
-API_KEY = os.environ.get("open_weather_map_api_key")
+API_KEY = os.environ.get("OPEN_WEATHER_MAP_API_KEY")
 OPEN_WEATHER_MAP_ENDPOINT = "https://api.openweathermap.org/data/2.5/forecast"
+
+TWILIO_ID = os.environ.get("TWILIO_ACCOUNT_SID")
+TWILIO_AUTH_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN")
+FROM_NUMBER = os.environ.get("TWILIO_PHONE_NUMBER")
+TO_NUMBER = os.environ.get("PERSONAL_PHONE_NUMBER")
+
 MY_LAT = 10.099346
 MY_LONG = 99.830449
 
@@ -21,14 +31,26 @@ response = requests.get(url=OPEN_WEATHER_MAP_ENDPOINT, params=parameters)
 response.raise_for_status()
 weather_data = response.json()["list"]
 
-for item in weather_data:
-    # Will it rain in the next 12 hours?
-    # Open Weather Map weather condition codes: https://openweathermap.org/weather-conditions
-    rain = ""
-    if item["weather"][0]["id"] < 700:
-        rain = "It is due to rain at this time."
+rain_message = ""
+will_rain = False
 
-    # rsplit splits from the end forwards, and maxsplit set to 1 only splits the first instance:
-    time = item["dt_txt"].split(" ")[1].rsplit(":", 1)[0]
-    temperature = item["main"]["feels_like"]  # "Feels like" is the only valid measurement of temperature
-    print(f"At {time} the temperature will be {temperature}°C. {rain}")
+while True:
+    for item in weather_data:
+        # Will it rain in the next 12 hours?
+        # Open Weather Map weather condition codes: https://openweathermap.org/weather-conditions
+        if item["weather"][0]["id"] < 700:
+            will_rain = True
+
+    if will_rain is True:
+        rain_message += "It will rain today. Take an ☂️"
+
+        client = Client(TWILIO_ID, TWILIO_AUTH_TOKEN)
+
+        message = client.messages.create(
+            body=rain_message,
+            from_=FROM_NUMBER,
+            to=TO_NUMBER
+        )
+
+        print(message.status)
+
