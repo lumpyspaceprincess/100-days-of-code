@@ -1,7 +1,6 @@
 import os
 import requests
 from dotenv import load_dotenv
-from datetime import date, timedelta
 from twilio.rest import Client
 
 load_dotenv()
@@ -37,20 +36,17 @@ news_parameters = {
 
 
 def get_stock_price_change():
-    yesterdays_date = str(date.today() - timedelta(days=1))
-    ereyesterdays_date = str(date.today() - timedelta(days=4))
-
     response = requests.get(url="https://www.alphavantage.co/query", params=alpha_parameters)
     response.raise_for_status()
     data = response.json()["Time Series (Daily)"]
+    data_list = [value for (key, value) in data.items()]
 
-    yesterday_close_price = data[yesterdays_date]["4. close"]
-    ereyesterday_close_price = data[ereyesterdays_date]["4. close"]
+    yesterday_close_price = data_list[0]["4. close"]
+    ereyesterday_close_price = data_list[1]["4. close"]
 
     change_percentage = ((float(yesterday_close_price) - float(ereyesterday_close_price))
                          / float(ereyesterday_close_price)) * 100
-    if change_percentage >= 1 or change_percentage <= -1:
-        # print("yes")
+    if change_percentage >= 5 or change_percentage <= -5:
         global change_direction
         if change_percentage > 0:
             change_direction = "🔺"
