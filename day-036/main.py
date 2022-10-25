@@ -39,7 +39,7 @@ def get_stock_price_change():
 
     change_percentage = ((float(yesterday_close_price) - float(ereyesterday_close_price))
                          / float(ereyesterday_close_price)) * 100
-    if change_percentage >= 5 or change_percentage <= -5:
+    if change_percentage >= 0 or change_percentage <= -0:
         global change_direction
         if change_percentage > 0:
             change_direction = "🔺"
@@ -58,27 +58,26 @@ def get_stock_news():
         "language": "en",
         "pageSize": 3,
     }
-    
+
     response = requests.get(url="https://newsapi.org/v2/everything", params=news_parameters)
     response.raise_for_status()
-    data = response.json()
+    articles = response.json()["articles"]
+    headlines = [f"{STOCK}: {change_direction}\n Headline: {article['title']}\n "
+                 f"Brief: {article['description']}" for article in articles]
 
-    title = data["articles"][0]["title"]
-    description = data["articles"][0]["description"]
-    send_sms_message(title, description)
+    for item in headlines:
+        send_sms_message(item)
 
 
 # STEP 3: Use https://www.twilio.com
 # Send a seperate message with the percentage change and each article's title and description to your phone number. 
 
 
-def send_sms_message(title, description):
+def send_sms_message(headline):
     client = Client(TWILIO_ID, TWILIO_AUTH_TOKEN)
 
     message = client.messages.create(
-        body=f"{STOCK}: {change_direction}\n"
-             f"Headline: {title}\n"
-             f"Brief: {description}",
+        body=headline,
         from_=FROM_NUMBER,
         to=TO_NUMBER
     )
