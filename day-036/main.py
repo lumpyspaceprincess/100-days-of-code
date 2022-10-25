@@ -18,24 +18,17 @@ TO_NUMBER = os.environ.get("PERSONAL_PHONE_NUMBER")
 
 NEWS_API_KEY = os.environ.get("NEWSAPIORG_API_KEY")
 
-alpha_parameters = {
-    "function": "TIME_SERIES_DAILY",
-    "symbol": STOCK,
-    "apikey": ALPHA_API_KEY,
-}
-
-news_parameters = {
-    "apiKey": NEWS_API_KEY,
-    "q": COMPANY_NAME,
-    "language": "en",
-    "pageSize": 3,
-}
-
 # STEP 1: Use https://www.alphavantage.co
 # When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
 
 
 def get_stock_price_change():
+    alpha_parameters = {
+        "function": "TIME_SERIES_DAILY",
+        "symbol": STOCK,
+        "apikey": ALPHA_API_KEY,
+    }
+
     response = requests.get(url="https://www.alphavantage.co/query", params=alpha_parameters)
     response.raise_for_status()
     data = response.json()["Time Series (Daily)"]
@@ -59,6 +52,13 @@ def get_stock_price_change():
 # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME.
 
 def get_stock_news():
+    news_parameters = {
+        "apiKey": NEWS_API_KEY,
+        "q": COMPANY_NAME,
+        "language": "en",
+        "pageSize": 3,
+    }
+    
     response = requests.get(url="https://newsapi.org/v2/everything", params=news_parameters)
     response.raise_for_status()
     data = response.json()
