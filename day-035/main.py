@@ -32,22 +32,19 @@ weather_data = response.json()["list"]
 
 
 def sms_rain_messaging():
-    rain_message = ""
     will_rain = False
 
     for item in weather_data:
         # Will it rain in the next 12 hours?
-        # Open Weather Map weather condition codes: https://openweathermap.org/weather-conditions
+        # OpenWeatherMap weather condition codes: https://openweathermap.org/weather-conditions
         if item["weather"][0]["id"] < 700:
             will_rain = True
 
     if will_rain is True:
-        rain_message += "It will rain today. Take an ☂️"
-
         client = Client(TWILIO_ID, TWILIO_AUTH_TOKEN)
 
         message = client.messages.create(
-            body=rain_message,
+            body="It will rain today. Take an ☂️",
             from_=FROM_NUMBER,
             to=TO_NUMBER
         )
@@ -58,4 +55,3 @@ def sms_rain_messaging():
 while True:
     schedule.every().day.at("07:00").do(sms_rain_messaging)
     time.sleep(1)
-    
