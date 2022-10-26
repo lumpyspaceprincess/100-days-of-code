@@ -38,8 +38,8 @@ graph_config = {
 # print(response.text)
 
 post_config = {
-    "date": str(datetime.now()).split(" ")[0].replace("-", ""),
-    "quantity": "2",
+    "date": datetime.now().strftime("%Y%m%d"),
+    "quantity": "3",
 }
 
 response = requests.post(url=f"{graph_endpoint}/{graph_config['id']}", json=post_config, headers=headers)
