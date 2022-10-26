@@ -37,10 +37,27 @@ graph_config = {
 # response = requests.post(url=graph_endpoint, json=graph_config, headers=headers)
 # print(response.text)
 
+today = datetime(year=2022, month=10, day=24)
+the_date = today.strftime("%Y%m%d")
+
 post_config = {
-    "date": datetime.now().strftime("%Y%m%d"),
-    "quantity": "3",
+    "date": the_date,
+    "quantity": "33",
 }
 
-response = requests.post(url=f"{graph_endpoint}/{graph_config['id']}", json=post_config, headers=headers)
-print(response.status_code)
+# To add new information to an existing graph:
+# response = requests.post(url=f"{graph_endpoint}/{graph_config['id']}", json=post_config, headers=headers)
+# print(response.text)
+
+put_config = {
+    "quantity": "60",
+}
+
+# To update an existing entry in an existing graph:
+# response = requests.put(url=f"{graph_endpoint}/{graph_config['id']}/{the_date}",
+#                         json=put_config, headers=headers)
+# print(response.text)
+
+# To delete an existing entry in an existing graph:
+# response = requests.delete(url=f"{graph_endpoint}/{graph_config['id']}/{the_date}", headers=headers)
+# print(response.text)
