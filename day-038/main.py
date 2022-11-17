@@ -29,7 +29,7 @@ nutritionix_postconfig = {
 response = requests.post(url=nutritionix_endpoint, headers=nutritionix_headers, json=nutritionix_postconfig)
 exercises = response.json()["exercises"][0]
 
-the_date = datetime.now().strftime("%Y%m%d")
+the_date = datetime.now().strftime("%Y-%m-%d")
 the_time = datetime.now().strftime("%H:%M:%S")
 
 sheety_parameters = dict()
