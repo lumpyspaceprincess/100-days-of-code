@@ -19,7 +19,7 @@ nutritionix_headers = {
 
 nutritionix_postconfig = {
     # "query": input("Tell me which exercises you did: "),
-    "query": "ran 3 miles",
+    "query": "ran 3 miles and swam 3km",
     "gender": "female",
     "weight_kg": 72.5,
     "height_cm": 167.64,
@@ -27,7 +27,7 @@ nutritionix_postconfig = {
 }
 
 response = requests.post(url=nutritionix_endpoint, headers=nutritionix_headers, json=nutritionix_postconfig)
-exercises = response.json()["exercises"][0]
+exercises = response.json()["exercises"]
 
 the_date = datetime.now().strftime("%Y-%m-%d")
 the_time = datetime.now().strftime("%H:%M:%S")
@@ -39,12 +39,12 @@ for item in exercises:
         "workout": {
             "date": the_date,
             "time": the_time,
-            "exercise": exercises["name"],
-            "duration": exercises["duration_min"],
-            "calories": exercises["nf_calories"],
+            "exercise": item["name"],
+            "duration": item["duration_min"],
+            "calories": item["nf_calories"],
         }
     }
 
+    response = requests.post(url=sheety_endpoint, json=sheety_parameters)
+    response.raise_for_status()
 
-response = requests.post(url=sheety_endpoint, json=sheety_parameters)
-response.raise_for_status()
