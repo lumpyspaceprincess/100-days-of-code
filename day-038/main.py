@@ -8,13 +8,18 @@ load_dotenv()
 
 API_KEY = os.environ.get("NUTRITIONIX_API_KEY")
 APP_ID = os.environ.get("NUTRITIONIX_ID")
-sheety_endpoint = os.environ.get("SHEETY_ENDPOINT")
-nutritionix_endpoint = "https://trackapi.nutritionix.com/v2/natural/exercise"
+SHEETY_ENDPOINT = os.environ.get("SHEETY_ENDPOINT")
+NUTRITIONIX_ENDPOINT = "https://trackapi.nutritionix.com/v2/natural/exercise"
+SHEETY_AUTH = os.environ.get("SHEETY_AUTHENTICATION")
 
 nutritionix_headers = {
     "x-app-id": APP_ID,
     "x-app-key": API_KEY,
     "Content-Type": "application/json",
+}
+
+sheety_headers = {
+    "authentication": f"Bearer {SHEETY_AUTH}",
 }
 
 nutritionix_postconfig = {
@@ -26,7 +31,7 @@ nutritionix_postconfig = {
     "age": 30,
 }
 
-response = requests.post(url=nutritionix_endpoint, headers=nutritionix_headers, json=nutritionix_postconfig)
+response = requests.post(url=NUTRITIONIX_ENDPOINT, headers=nutritionix_headers, json=nutritionix_postconfig)
 exercises = response.json()["exercises"]
 
 the_date = datetime.now().strftime("%Y-%m-%d")
@@ -45,6 +50,5 @@ for item in exercises:
         }
     }
 
-    response = requests.post(url=sheety_endpoint, json=sheety_parameters)
+    response = requests.post(url=SHEETY_ENDPOINT, json=sheety_parameters, headers=sheety_headers)
     response.raise_for_status()
-
