@@ -1,8 +1,9 @@
 import os
-import requests
 from twilio.rest import Client
 from dotenv import load_dotenv
-from pprint import pprint
+from data_manager import DataManager
+from flight_search import FlightSearch
+from flight_data import FlightData
 
 load_dotenv()
 
@@ -49,3 +50,22 @@ def send_sms_message(message_body):
 # TODO 4:
 # The SMS should include the departure airport IATA code, destination airport IATA code,
 # departure city, destination city, flight price and flight dates.
+
+def main():
+    data_manager = DataManager()
+    sheet_data = data_manager.get_the_data()
+    print(sheet_data)
+
+    flight_search = FlightSearch()
+    for item in sheet_data:
+        if item["iataCode"] == "":
+            print(item["city"])
+            item["iataCode"] = flight_search.searching_for_flights(item["city"])
+            print(item["iataCode"])
+
+    data_manager.destination_data = sheet_data
+    data_manager.update_iata_codes()
+
+
+if __name__ == '__main__':
+    main()
