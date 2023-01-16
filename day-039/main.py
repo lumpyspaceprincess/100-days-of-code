@@ -66,6 +66,9 @@ def main():
     data_manager.destination_data = sheet_data
     data_manager.update_iata_codes()
 
+    for item in sheet_data:
+        item[""]
+
 
 if __name__ == '__main__':
     main()
