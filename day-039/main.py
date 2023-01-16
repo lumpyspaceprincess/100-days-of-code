@@ -1,4 +1,3 @@
-import time
 from data_manager import DataManager
 from flight_search import FlightSearch
 
@@ -16,7 +15,7 @@ def main():
     data_manager.update_iata_codes()
 
     for item in sheet_data:
-        print(f"{item['city']}: {flight_search.cost_from_london(item['iataCode'])}")
+        flight_search.cost_from_london(item['iataCode'])
 
 
 if __name__ == '__main__':

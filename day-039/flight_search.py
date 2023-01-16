@@ -2,6 +2,7 @@ import os
 import requests
 import datetime
 from dotenv import load_dotenv
+from flight_data import FlightData
 
 load_dotenv()
 
@@ -61,6 +62,19 @@ class FlightSearch:
         try:
             data = response.json()["data"][0]
         except IndexError:
+            print(f"No flights found for {destination}.")
             return "No flights available"
 
-        return f"£{data['price']}"
+        flight_data = FlightData(
+            price=data["price"],
+            origin_city=data["route"][0]["cityFrom"],
+            origin_airport=data["route"][0]["flyFrom"],
+            destination_city=data["route"][0]["cityTo"],
+            destination_airport=data["route"][0]["flyTo"],
+            departure_date=data["route"][0]["local_departure"].split("T")[0],
+            return_date=data["route"][1]["local_departure"].split("T")[0]
+        )
+
+        print(f"{flight_data.destination_city}: £{flight_data.price}")
+
+        return flight_data
