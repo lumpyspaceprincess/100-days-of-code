@@ -22,6 +22,9 @@ def date_to():
 class FlightSearch:
     # This class is responsible for talking to the Flight Search API.
 
+    def __init__(self):
+        pass
+
     def searching_for_flights(self, city):
 
         endpoint = f"{TEQUILA_ENDPOINT}/locations/query"
@@ -38,7 +41,7 @@ class FlightSearch:
 
         return code
 
-    def distance_from_london(self, destination):
+    def cost_from_london(self, destination):
         endpoint = f"{TEQUILA_ENDPOINT}/v2/search"
         header = {"apikey": FLIGHTS_API_KEY}
         parameters = {
@@ -54,3 +57,10 @@ class FlightSearch:
         }
 
         response = requests.get(url=endpoint, headers=header, params=parameters)
+
+        try:
+            data = response.json()["data"][0]
+        except IndexError:
+            return "No flights available"
+
+        return f"£{data['price']}"
