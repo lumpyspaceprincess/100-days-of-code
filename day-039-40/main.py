@@ -25,10 +25,6 @@ def main():
                                                   f"{flight.destination_city}-{flight.destination_iata_code}, from "
                                                   f"{flight.departure_date} to {flight.return_date}.")
 
-    # TODO 3:
-    # If the price is lower than the lowest price listed in the Google Sheet then send
-    # an SMS to your own number with the Twilio API.
-
 
 if __name__ == '__main__':
     main()

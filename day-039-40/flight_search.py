@@ -55,17 +55,17 @@ class FlightSearch:
         except IndexError:
             print(f"No flights found for {destination}.")
             return None
+        else:
+            flight_data = FlightData(
+                price=data["price"],
+                departure_city=data["route"][0]["cityFrom"],
+                departure_iata_code=data["route"][0]["flyFrom"],
+                destination_city=data["route"][0]["cityTo"],
+                destination_iata_code=data["route"][0]["flyTo"],
+                departure_date=data["route"][0]["local_departure"].split("T")[0],
+                return_date=data["route"][1]["local_departure"].split("T")[0]
+            )
 
-        flight_data = FlightData(
-            price=data["price"],
-            departure_city=data["route"][0]["cityFrom"],
-            departure_iata_code=data["route"][0]["flyFrom"],
-            destination_city=data["route"][0]["cityTo"],
-            destination_iata_code=data["route"][0]["flyTo"],
-            departure_date=data["route"][0]["local_departure"].split("T")[0],
-            return_date=data["route"][1]["local_departure"].split("T")[0]
-        )
+            print(f"{flight_data.destination_city}: £{flight_data.price}")
 
-        print(f"{flight_data.destination_city}: £{flight_data.price}")
-
-        return flight_data
+            return flight_data
