@@ -20,10 +20,13 @@ def main():
         flight = flight_search.cost_from_london(item['iataCode'])
 
         if flight.price < item["lowest Price"]:
-            notification_manager.send_sms_message(message_body=f"Low price alert! only {flight.price} to fly from "
-                                                  f"{flight.departure_city}-{flight.departure_iata_code} to "
-                                                  f"{flight.destination_city}-{flight.destination_iata_code}, from "
-                                                  f"{flight.departure_date} to {flight.return_date}.")
+            message_body = f"Low price alert! only {flight.price} to fly from " \
+                           f"{flight.departure_city}-{flight.departure_iata_code} to " \
+                           f"{flight.destination_city}-{flight.destination_iata_code}, from " \
+                           f"{flight.departure_date} to {flight.return_date}."
+            if flight.stop_overs > 0:
+                message_body += f"Flight has {flight.stop_overs} stop(s), via {flight.via_city}"
+            notification_manager.send_sms_message(message_body=message_body)
 
 
 if __name__ == '__main__':
