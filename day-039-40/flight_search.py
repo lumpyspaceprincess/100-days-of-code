@@ -53,8 +53,22 @@ class FlightSearch:
         try:
             data = response.json()["data"][0]
         except IndexError:
-            print(f"No flights found for {destination}.")
-            return None
+            print(f"No direct flights found for {destination}.")
+            parameters["max_stopovers"] = 1
+            response = requests.get(url=endpoint, headers=header, params=parameters)
+            data = response.json()["data"][0]
+            flight_data = FlightData(
+                price=data["price"],
+                departure_city=data["route"][0]["cityFrom"],
+                departure_iata_code=data["route"][0]["flyFrom"],
+                destination_city=data["route"][1]["cityTo"],
+                destination_iata_code=data["route"][0]["flyTo"],
+                departure_date=data["route"][0]["local_departure"].split("T")[0],
+                return_date=data["route"][2]["local_departure"].split("T")[0],
+                stop_overs=1,
+                via_city=data["route"][0]["cityTo"]
+            )
+            return flight_data
         else:
             flight_data = FlightData(
                 price=data["price"],
