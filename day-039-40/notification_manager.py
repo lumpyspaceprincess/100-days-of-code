@@ -23,5 +23,7 @@ class NotificationManager:
             from_=FROM_NUMBER,
             to=TO_NUMBER
         )
-
         print(message.status)
+
+    def send_emails(self):
+        pass
