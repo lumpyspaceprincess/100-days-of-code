@@ -16,3 +16,7 @@ Gmail's security has been updated, so I haven't been able to check if this actua
 ###  **Day 033**
 
 Another one which requires gmail to send emails. All other testing seems to show it working though.
+
+###  **Day 039-40**
+
+Infuriatingly, I'm unable to use both gmail AND sheety due to the sheety API's low free tier. So this project remains untestable until next month. Possibly need to set up Yahoo email address, might work in place of gmail.
