@@ -20,7 +20,7 @@ def post_to_sheety(name, surname, email):
     response.raise_for_status()
 
 
-def get_data():
+def get_emails():
     prenom = input("Welcome to Lumpy Flight Club. \n "
                    "We find the best flight deals and email you. \n "
                    "What is your first name?")

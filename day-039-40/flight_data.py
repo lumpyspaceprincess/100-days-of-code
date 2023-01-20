@@ -11,6 +11,6 @@ class FlightData:
         self.destination_iata_code = destination_iata_code
         self.departure_date = departure_date
         self.return_date = return_date
-
+        # Optional:
         self.stop_overs = stop_overs
         self.via_city = via_city

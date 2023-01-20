@@ -27,6 +27,7 @@ def main():
             if flight.stop_overs > 0:
                 message_body += f"Flight has {flight.stop_overs} stop(s), via {flight.via_city}"
             notification_manager.send_sms_message(message_body=message_body)
+            notification_manager.send_emails(message_body=message_body)
 
 
 if __name__ == '__main__':
