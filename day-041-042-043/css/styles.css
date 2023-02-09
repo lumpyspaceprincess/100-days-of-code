@@ -3,8 +3,16 @@ body {
 }
 
 hr {
-    border-color: #C8C2BC;
+    border-color: #F6F7C1;
     border-width: 5px;
     border-style: dotted none none none;
     width: 5%;
+}
+
+h1 {
+    color: #D1FFF3;
+}
+
+h3 {
+    color: #BEF0CB;
 }
