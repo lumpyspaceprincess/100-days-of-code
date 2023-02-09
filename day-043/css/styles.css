@@ -4,19 +4,12 @@ body {
     background-color: #FFBABA;
 }
 
-hr {
-    border-color: #F6F7C1;
-    border-width: 5px;
-    border-style: dotted none none none;
-    width: 5%;
-}
-
 h1 {
     color: #C85C8E;
 }
 
-h3 {
-    color: #9D3C72;
+img:hover {
+    background-color: red;
 }
 
 /************************** CLASS SELECTORS **************************/
@@ -27,6 +20,10 @@ h3 {
 
 .broccoli {
     background-color: #698269;
+}
+
+.circular {
+    border-radius: 100%;
 }
 
 /************************** ID SELECTORS **************************/
